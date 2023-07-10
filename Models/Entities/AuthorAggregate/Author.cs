@@ -1,0 +1,23 @@
+﻿using Models.Models.Entities.JoiningTables;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Models.Models.Entities.AuthorAggregate
+{
+    public class Author
+    {
+        public int Id { get; private set; }
+
+        public string FirstName { get; private set; }
+
+        public string LastName { get; private set; }
+
+        //Navigations
+        public IEnumerable<Alias> Aliases { get; } = new List<Alias>();
+
+        public IEnumerable<AuthorMaterial> Materials { get; } = new List<AuthorMaterial>();
+    }
+}
