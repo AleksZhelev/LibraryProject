@@ -63,6 +63,9 @@ namespace Models.Models.Entities.UserAggregate
             }
         }
 
+        /// <summary>
+        /// Sets the violation expiry date to 6 months from now.
+        /// </summary>
         public void SetViolationExpiryDateTime()
         {
             ViolationPenaltyExpirationDate = DateTime.Now.AddMonths(6);

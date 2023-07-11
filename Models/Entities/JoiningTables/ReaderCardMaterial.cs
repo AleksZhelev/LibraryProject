@@ -18,7 +18,7 @@ namespace Models.Models.Entities.JoiningTables
         // as I intend to have the system look through all leased materials and send an email or text for due materials?
         public DateTime DueDate { get; private set; }
 
-        public DateTime ReturnedDate { get; private set; }
+        public DateTime? ReturnedDate { get; private set; }
 
         [NotMapped]
         private readonly int daysForALease = 20;
@@ -32,9 +32,23 @@ namespace Models.Models.Entities.JoiningTables
                 throw new InvalidOperationException("Reader has already leased the same material or has materials past their due date.");
             }
 
+            if (Material.CheckIfHasQuantity())
+            {
+                throw new InvalidOperationException("No copies left");
+            }
+            
             DueDate = DateTime.Now.AddDays(daysForALease);
         }
 
+        // Navigations
+        public int ReaderCardId { get; private set; }
+
+        public ReaderCard ReaderCard { get; private set; }
+
+        public int MaterialId { get; private set; }
+
+        public Material Material { get; private set; }
+        
         /// <summary>
         /// Method used to extend the lease of materials.
         /// </summary>
@@ -50,14 +64,5 @@ namespace Models.Models.Entities.JoiningTables
 
                 return DueDate;
         }
-
-        // Navigations
-        public int ReaderCardId { get; private set; }
-
-        public ReaderCard ReaderCard { get; private set; }
-
-        public int MaterialId { get; private set; }
-
-        public Material Material { get; private set; }
     }
 }

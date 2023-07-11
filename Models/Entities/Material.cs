@@ -37,5 +37,20 @@ namespace Models.Models.Entities
         public IEnumerable<AuthorMaterial> AuthorMaterials { get; } = new List<AuthorMaterial>();
 
         public IEnumerable<CategoryMaterial> CategoryMaterials { get; } = new List<CategoryMaterial>();
+
+        /// <summary>
+        /// Checks if there are any copies of the material left and reduces it by one.
+        /// </summary>
+        /// <returns>True if there is at least one copy and reduces the Quantity by one, else returns false.</returns>
+        public bool CheckIfHasQuantity()
+        {
+            if(Quantity > 0)
+            {
+                Quantity--;
+                return true;
+            }
+
+            return false;
+        }
     }
 }
